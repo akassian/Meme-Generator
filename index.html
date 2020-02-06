@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Quicksand&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Meme Generator</title>
+  </head>
+  <body>
+    <div class="content">
+      <!-- Image URL:
+        <input type="url" id="myURL" /><br />
+        <button onclick="myFunction()">Dankify</button> -->
+
+      <div class="upper">
+        <div class="title">I HeArD U LiKe MeMeS</div>
+        <!-- <div class="inner"> -->
+        <form id="form" method="post">
+          Image URL
+          <br />
+          <input
+            type="url"
+            id="imgURL"
+            value=""
+            placeholder="Your meme image..."
+          />
+          <br />
+          Top Text
+          <br />
+          <input
+            type="text"
+            id="topText"
+            value=""
+            placeholder="Text on top of meme (limit to ~2 lines for best effect)..."
+          />
+          <br />
+          Bottom Text
+          <br />
+          <input
+            type="text"
+            id="bottomText"
+            value=""
+            placeholder="Text on bottom of meme (limit to ~2 lines for best effect)..."
+          />
+          <br />
+          Font Size: <span id="demo"></span>pt
+          <br />
+          <div class="slidecontainer">
+            <input
+              type="range"
+              min="12"
+              max="32"
+              value="22"
+              class="slider"
+              id="fontSize"
+            />
+          </div>
+          <!-- <input
+            type="number"
+            name="quantity"
+            min="12"
+            value="22"
+            max="32"
+            id="fontSize"
+          /> -->
+          <input type="submit" value="Boom" />
+        </form>
+      </div>
+      <!-- </div> -->
+      <div id="placehere" class="placehere"></div>
+    </div>
+  </body>
+  <script>
+    var remove = function() {
+      this.remove();
+    };
+    function myFunction(e) {
+      var imgURLVal = document.getElementById("imgURL").value;
+      if (imgURLVal.length <= 0) {
+        alert("Image URL is required");
+        e.preventDefault();
+        return;
+      }
+      var topTextVal = document.getElementById("topText").value;
+      var fontSize = document.getElementById("fontSize").value;
+      var chunk = document.createElement("div");
+      chunk.classList.add("chunk");
+      var container = document.createElement("div");
+      container.classList.add("container");
+      var overlay = document.createElement("div");
+      overlay.classList.add("overlay");
+      overlay.classList.add("noselect");
+      overlay.innerHTML = "X";
+      var pic = document.createElement("img");
+      var topText = document.createElement("p");
+      var bottomText = document.createElement("p");
+      topText.classList.add("top-text");
+      topText.classList.add("noselect");
+      topText.style.fontSize = fontSize + "pt";
+      topText.innerHTML = topTextVal;
+      var bottomTextVal = document.getElementById("bottomText").value;
+      bottomText.classList.add("bottom-text");
+      bottomText.classList.add("noselect");
+      bottomText.style.fontSize = fontSize + "pt";
+      bottomText.innerHTML = bottomTextVal;
+      // alert("a");
+      // alert(imgURLVal);
+      pic.src = imgURLVal;
+      // pic.setAttribute("height", "256");
+      // pic.setAttribute("width", "512");
+      container.appendChild(overlay);
+      container.appendChild(topText);
+      container.appendChild(bottomText);
+      container.appendChild(pic);
+      chunk.appendChild(container);
+      chunk.addEventListener("click", remove, false);
+      document.getElementById("placehere").appendChild(chunk);
+      var form = document.getElementById("form");
+      form.reset();
+      document.getElementById("fontSize").value = fontSize;
+      e.preventDefault();
+    }
+
+    // var chunks = document.querySelectorAll("div");
+    // var chunks = document.getElementsByClassName("chunk");
+
+    // for (var i = 0, len = chunks.length; i < len; i++) {
+    //   chunks[i].addEventListener("click", remove, false);
+    // }
+
+    // elem.setAttribute("height", "768");
+    // elem.setAttribute("width", "1024");
+    // var elem = document.createElement("img");
+    // elem.setAttribute("src", "images/hydrangeas.jpg");
+    // elem.setAttribute("height", "768");
+    // elem.setAttribute("width", "1024");
+    // elem.setAttribute("alt", "Flower");
+    // document.getElementById("placehere").appendChild(elem);
+    document.getElementById("form");
+    form.addEventListener("submit", myFunction);
+
+    var slider = document.getElementById("fontSize");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    };
+  </script>
+</html>
